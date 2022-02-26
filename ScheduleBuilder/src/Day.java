@@ -3,16 +3,10 @@ import java.util.ArrayList;
 public class Day {
     
     private String day;
-    private int dayOfMonth;
-    private String month;
-    private int year;
     private ArrayList<Event> events;
 
     public Day (String day, int dayOfMonth, String month, int year) {
         this.day = day;
-        this.dayOfMonth = dayOfMonth;
-        this.month = month;
-        this.year = year;
         events = new ArrayList<Events>();
     }
 
@@ -20,24 +14,11 @@ public class Day {
         this.day = day;
     }
 
-    public setData (int dayOfMonth, String month, int year) {
-        this.dayOfMonth = dayOfMonth;
-        this.month = month;
-        this.year = year;
+    public void addEvent (double start, double end) {
+
     }
 
-    public void setDayOfMonth (int dayOfMonth) {
-        this.dayOfMonth = dayOfMonth;
-    }
-    
-    public void setMonth (String month) {
-        this.month = month;
-    }
-
-    public void setYear (int year) {
-        this.year = year;
-    }
-
+    // Event Inner Class
     private class Event {
 
         private TimeFrame time;
