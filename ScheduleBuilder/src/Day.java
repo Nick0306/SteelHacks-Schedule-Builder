@@ -15,10 +15,6 @@ public class Day {
         this.day = day;
     }
 
-    public void addEvent (double start, double end, String title) {
-        events.add(new Event(start, end, title));
-    }
-
     public ArrayList<Event> getEvents () {
         return events;
     }
@@ -35,8 +31,14 @@ public class Day {
         return events.size();
     }
     
-    public boolean addEvent(String eventName, double startTime, double endTime) {
-    	events.add(new Event(startTime, endTime, eventName));
+    public boolean addEvent(String eventName, double startTime, double endTime, boolean override) {
+        Event ev = new Event(startTime, endTime, eventName);
+        for (Event e: events) {
+            if (ev.getStart() < e.getEnd() || ev.getEnd() > e.getStart()) 
+                if (!override) return false;
+                else break;
+        }
+        events.add(new Event(startTime, endTime, eventName));
     	return true;
     }
 
