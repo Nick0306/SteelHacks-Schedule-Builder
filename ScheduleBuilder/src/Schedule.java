@@ -131,7 +131,8 @@ public class Schedule {
                 }
                 free.getDay(i).addEvent(8, times[0], "");
                 for (int j = 1; j < times.length-1; j+=2) {
-                    free.getDay(i).addEvent(times[j], times[j+1], "");
+                    if (times[j] != times[j+1])
+                        free.getDay(i).addEvent(times[j], times[j+1], "");
                 }
                 free.getDay(i).addEvent(times[times.length-1], 24, "");
             }
