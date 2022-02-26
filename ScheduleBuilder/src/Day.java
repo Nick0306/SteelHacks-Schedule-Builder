@@ -27,5 +27,13 @@ public class Day {
     	return day;
     }
 
+    public String toString () {
+        String s = "";
+        for (int i = 0; i < events.size(); i++) {
+            s += events.get(i).getTitle() + " " + events.get(i).getStart() + " " + events.get(i).getEnd(); 
+        }
+        return s;
+    }
+
     
 }

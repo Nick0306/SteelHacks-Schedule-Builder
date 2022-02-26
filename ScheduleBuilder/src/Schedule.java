@@ -33,6 +33,14 @@ public class Schedule {
         size++;
     }
 
+    public String toString() {
+        String s = "";
+        for (Day d: schedOfWeek) {
+            s += "\n" + d.toString();
+        }
+        return s;
+    }
+
     public static Schedule compareDays (ArrayList<Schedule> schedules) {
         Schedule overlayed = new Schedule();
 		for (int k = 0; k < 7; k++) {
