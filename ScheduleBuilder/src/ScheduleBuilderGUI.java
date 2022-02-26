@@ -104,7 +104,7 @@ public class ScheduleBuilderGUI{
 		
 		
 		sp = new JScrollPane(txtareaOutput);
-		sp.setBounds(19, 235, 301, 180);
+		sp.setBounds(19, 235, 370, 180);
 		
 		
 		
@@ -176,7 +176,7 @@ public class ScheduleBuilderGUI{
 				for(Day day : schedule.getSchedule()) {
 					ArrayList<Event> eArr = day.getEvents();
 					
-					txtareaOutput.append("\n~~~~~~~~~~~~~~~~\nDay: " + day.getDay() + ":\n");
+					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~\nDay: " + day.getDay() + ":\n");
 					for(int i = 0; i < eArr.size(); i++) {
 						txtareaOutput.append("\nFree between: ");
 						int sHour = (int) eArr.get(i).getStart();
@@ -238,7 +238,7 @@ public class ScheduleBuilderGUI{
 				
 				boolean successful = user.addEvent(week, day, eventName, sTime, eTime, override);
 				if(successful) {
-					txtareaOutput.append(eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~~~\n");
+					txtareaOutput.append("\n" + eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~\n");
 				}else {
 					int input = JOptionPane.showConfirmDialog(null, "You tried to add " + eventName + " to your schedule, and it conflicts with something else. Do you wish to have them overlap?");
 					if(input == 0) {
@@ -247,7 +247,7 @@ public class ScheduleBuilderGUI{
 					if(override == true) {
 						successful = user.addEvent(week, day, eventName, sTime, eTime, override);
 						if(successful){
-							txtareaOutput.append(eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~~~\n");
+							txtareaOutput.append("\n" + eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~\n");
 						}
 					}
 				}

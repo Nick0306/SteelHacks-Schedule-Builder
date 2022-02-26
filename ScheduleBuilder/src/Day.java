@@ -33,10 +33,13 @@ public class Day {
     
     public boolean addEvent(String eventName, double startTime, double endTime, boolean override) {
         Event ev = new Event(startTime, endTime, eventName);
+        System.out.println("START TIME: " + ev.getStart() + " END TIME: " + ev.getEnd());
         for (Event e: events) {
-            if (ev.getStart() < e.getEnd() || ev.getEnd() > e.getStart()) 
+            if ((e.getStart() < ev.getEnd() && e.getEnd() > ev.getStart()) || (e.getEnd() > ev.getStart() && ev.getEnd() > e.getStart())) { 
+            	System.out.println("ENTERED HERE");
                 if (!override) return false;
                 else break;
+            }
         }
         events.add(new Event(startTime, endTime, eventName));
     	return true;
