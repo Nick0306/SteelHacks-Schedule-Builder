@@ -162,6 +162,9 @@ public class ScheduleBuilderGUI{
 			public void actionPerformed(ActionEvent e) {
 				
 				ArrayList<Schedule> sArr = new ArrayList<Schedule>();
+				for (int i = 0; i < users.size(); i++) {
+					sArr.add(null);
+				}
 				int index = 0;
 				if(cboWeek.getSelectedItem().equals("Week One")) {
 					index = 0;
@@ -173,9 +176,14 @@ public class ScheduleBuilderGUI{
 					index = 3;
 				}
 				for(int i = 0; i < users.size(); i++) {
+					System.out.println("Index = " + index + "\ni = " + i);
 					sArr.set(i, users.get(i).getSchedule(index));
 				}
+				System.out.println(sArr.size());
+				System.out.println(sArr.get(0).toString());
+				System.out.println(sArr.get(1).toString());
 				Schedule schedule = Schedule.compareDays(sArr);
+				System.out.println("SCHEDULE " + schedule.toString());
 				
 				for(Day day : schedule.getSchedule()) {
 					ArrayList<Event> eArr = day.getEvents();

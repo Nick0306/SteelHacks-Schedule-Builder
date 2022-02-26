@@ -22,9 +22,17 @@ public class Day {
     public ArrayList<Event> getEvents () {
         return events;
     }
+
+    public void setEvents (ArrayList<Event> events) {
+        this.events = events;
+    }
     
     public String getDay() {
     	return day;
+    }
+
+    public int getSize () {
+        return events.size();
     }
     
     public boolean addEvent(String eventName, double startTime, double endTime) {
