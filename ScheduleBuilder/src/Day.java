@@ -7,10 +7,10 @@ public class Day {
 
     public Day (String day) {
         this.day = day;
-        events = new ArrayList<Events>();
+        events = new ArrayList<Event>();
     }
 
-    public Day (ArrayList<Events> events, String day) {
+    public Day (ArrayList<Event> events, String day) {
         this.events = events;
         this.day = day;
     }
@@ -19,7 +19,7 @@ public class Day {
         events.add(new Event(start, end, title));
     }
 
-    public ArrayList<Event> returnEvents () {
+    public ArrayList<Event> getEvents () {
         return events;
     }
 
