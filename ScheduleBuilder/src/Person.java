@@ -13,9 +13,9 @@ public class Person {
         }
     }
     
-    public boolean addEvent(int week, String day, String eventName, double startTime, double endTime) {
+    public boolean addEvent(int week, String day, String eventName, double startTime, double endTime, boolean override) {
     	Schedule schedule = schedules[week];
-    	boolean added = schedule.addEvent(day, eventName, startTime, endTime);
+    	boolean added = schedule.addEvent(day, eventName, startTime, endTime, override);
     	if(added) {
     		return true;
     	}
