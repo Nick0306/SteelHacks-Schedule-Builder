@@ -4,11 +4,17 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+
 import biweekly.*;
 import biweekly.component.VEvent;
+import biweekly.util.Period;
 
 public class readICal {
     LocalDateTime now = LocalDateTime.now();
+    LocalDate weekStart;
+    LocalDate weekEnd;
 
 
     public readICal(String fileName) {
@@ -17,6 +23,22 @@ public class readICal {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public readICal(String[] fileNames) {
+        try {
+            List<ICalendar> icals = Biweekly.parse(new FileReader(fileNames[0])).all();
+            for(int i = 1; i < fileNames.length; i++) {
+                 icals.add(Biweekly.parse(new FileReader(fileNames[i])).first());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setWeek(LocalDateTime now) {
+        java.time.Instant nowInstant = now.toInstant(null);
+        
     }
 
     // public static void main(String[] args) throws FileNotFoundException, IOException {
