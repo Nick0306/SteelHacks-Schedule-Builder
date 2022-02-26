@@ -7,9 +7,8 @@ public class Schedule {
     private String title;
 
     public Schedule (String title) {
-        for (int i = 0; i < week.length; i++) {
+        for (int i = 0; i < week.length; i++)
             schedOfWeek[i] = week[i];
-        }
         this.title = title;
     }
 
@@ -26,9 +25,8 @@ public class Schedule {
         Schedule overlayed = new Schedule();
 		for (int k = 0; k < 7; k++) {
             Day[] days = new Day[schedules.size()];
-            for (int i = 0; i < schedules.size(); i++) {
+            for (int i = 0; i < schedules.size(); i++)
                 days[i] = schedules.get(i).getDay(i);
-            }
             ArrayList<Event> full = new ArrayList<Event>();
             for (int i = 0; i < days.length; i++) {
                 ArrayList<Event> events = days[i].getEvents();
@@ -47,10 +45,12 @@ public class Schedule {
                 double end = full.get(i).getEnd();
                 double nextStart = full.get(i+1).getStart();
                 double nextEnd = full.get(i+1).getEnd();
-                if (end > nextStart)
-                    if (end < nextEnd)
+                if (end > nextStart) {
+                    if (end < nextEnd) {
                         end = nextEnd;
                         full.remove(i+1);
+                    }
+                }
             }
             overlayed.add(new Day(full, week[k]));
         }
