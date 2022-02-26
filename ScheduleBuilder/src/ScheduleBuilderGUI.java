@@ -1,32 +1,13 @@
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JCheckBox;
-import javax.imageio.ImageIO;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -45,6 +26,7 @@ public class ScheduleBuilderGUI{
 	private JComboBox cboUser, cboDays, cboWeek;
 	private JTextArea txtareaOutput;
 	private JScrollPane sp;
+	private JButton btnImportSchedule;
 	
 	public ScheduleBuilderGUI(){
 		
@@ -53,6 +35,7 @@ public class ScheduleBuilderGUI{
 		frmWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWindow.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmWindow.getContentPane().setLayout(null);
+		frmWindow.setBounds(100,100,620,520);
 		
 		lblTitle = new JLabel("SCHEDULE BUILDER");
 		lblTitle.setFont(new Font("LEMON MILK", Font.BOLD | Font.ITALIC, 20));
@@ -119,7 +102,7 @@ public class ScheduleBuilderGUI{
 		sp.setBounds(19, 235, 301, 180);
 		
 		
-		frmWindow.setBounds(100,100,600,500);
+		
 		
 		lblCOLON = new JLabel(":");
 		lblCOLON.setHorizontalAlignment(SwingConstants.CENTER);
@@ -284,6 +267,7 @@ public class ScheduleBuilderGUI{
 				
 				Schedule s = user.getSchedule(week);
 				for(Day days : s.getSchedule()) {
+					txtareaOutput.append("\n" + days.getDay() + ":");
 					for(Event event : days.getEvents()) {
 						int sHour = (int) event.getStart();
 						int sMin = (int)Math.ceil((event.getStart() - ((int) event.getStart())) * 60);
@@ -303,6 +287,7 @@ public class ScheduleBuilderGUI{
 						txtareaOutput.append("\nEvent: " + event.getTitle() + "\n");
 						txtareaOutput.append(sHour + ":" + sMinute + " - " + eHour + ":" + eMinute);
 					}
+					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~");
 				}
 				
 				
@@ -311,13 +296,25 @@ public class ScheduleBuilderGUI{
 		});
 		
 		
+		btnImportSchedule = new JButton("Import Schedule");
+		btnImportSchedule.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		
+		
+		//String name = JOptionPane.showInputDialog("Name of New User");
+		
+		btnImportSchedule.setBounds(301, 19, 171, 29);
 		btnShowSchedule.setBounds(359, 437, 117, 29);
 		btnAddUser.setBounds(6, 437, 117, 29);
 		btnCompare.setBounds(477, 437, 117, 29);
-		btnAddEvent.setBounds(19, 190, 91, 33);
+		btnAddEvent.setBounds(19, 190, 130, 33);
 		
 		
-		
+		frmWindow.getContentPane().add(btnImportSchedule);
 		frmWindow.getContentPane().add(lblTitle);
 		frmWindow.getContentPane().add(cboDays);
 		frmWindow.getContentPane().add(cboWeek);
@@ -334,6 +331,8 @@ public class ScheduleBuilderGUI{
 		frmWindow.getContentPane().add(btnCompare);
 		frmWindow.getContentPane().add(btnAddEvent);
 		frmWindow.getContentPane().add(btnShowSchedule);
+		
+		
 		
 		
 		
