@@ -141,7 +141,7 @@ public class ScheduleBuilderGUI{
 					return;
 				}
 				users.add(new Person(name));
-				txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~\n" + name + " was successfully added to the User List!");
+				txtareaOutput.append(name + " was successfully added to the User List!\n~~~~~~~~~~~~~~~~~~~~~\n");
 				
 				//Person[] people = (Person[])users.toArray();
 				//cboUser = new JComboBox(people);
@@ -188,9 +188,9 @@ public class ScheduleBuilderGUI{
 				for(Day day : schedule.getSchedule()) {
 					ArrayList<Event> eArr = day.getEvents();
 					
-					txtareaOutput.append("Day: " + day.getDay() + "\n~~~~~~~~~~~" + "\n");
+					txtareaOutput.append("\n~~~~~~~~~~~~~~~~\nDay: " + day.getDay() + ":\n");
 					for(int i = 0; i < eArr.size(); i++) {
-						txtareaOutput.append("Free between: ");
+						txtareaOutput.append("\nFree between: ");
 						int sHour = (int) eArr.get(i).getStart();
 						int sMin = (int)Math.ceil((eArr.get(i).getStart() - ((int) eArr.get(i).getStart())) * 60);
 						txtareaOutput.append(sHour + ":" + sMin);
@@ -198,6 +198,7 @@ public class ScheduleBuilderGUI{
 						int eMin = (int)Math.ceil((eArr.get(i).getEnd() - ((int) eArr.get(i).getEnd())) * 60);
 						txtareaOutput.append(" - " + eHour + ":" + eMin);
 					}
+					//txtareaOutput.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				}
 				
 			}
@@ -240,7 +241,7 @@ public class ScheduleBuilderGUI{
 				
 				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
 				if(successful) {
-					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~~~\n" + eventName + " was successfully added for" + user.getName() + "!");
+					txtareaOutput.append(eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~~~\n");
 				}
 				
 				
