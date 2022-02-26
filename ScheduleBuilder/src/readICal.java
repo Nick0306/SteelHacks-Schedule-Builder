@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Calendar;
 import java.util.List;
@@ -10,6 +12,8 @@ import org.joda.time.Instant;
 
 import biweekly.*;
 import biweekly.component.VEvent;
+import biweekly.property.DateEnd;
+import biweekly.property.DateStart;
 import biweekly.util.Period;
 
 public class readICal {
@@ -42,6 +46,8 @@ public class readICal {
         int iDayNow = now.getDayOfWeek();
         weekStart = now.minusDays((iDayNow - 1));
         weekEnd = now.plusDays(7 - iDayNow);
+        //System.out.println(weekEnd);
+        //System.out.println(weekStart);
     }
 
     public ICalendar daysInterested() {
@@ -54,6 +60,22 @@ public class readICal {
 
         return newICal;
 
+    }
+
+    public void setEventsToDays(ICalendar newICal) {
+        Schedule schedule = new Schedule("Person 1");
+        for(VEvent event : newICal.getEvents()) {
+            DateStart eventStart = event.getDateStart();
+            DateEnd eventEnd = event.getDateEnd();
+
+            if(eventStart != null) {
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                DateFormat fmtESdf.format(eventStart);
+                df.format(eventEnd);
+                DateTime dt = new DateTime(df);
+            }
+            
+        }
     }
 
     // public static void main(String[] args) throws FileNotFoundException, IOException {
