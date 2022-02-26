@@ -1,25 +1,27 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.util.Calendar;
 import java.util.List;
 
+import org.joda.time.*;
 import org.joda.time.Instant;
-import org.joda.time.LocalDate;
 
 import biweekly.*;
 import biweekly.component.VEvent;
 import biweekly.util.Period;
 
 public class readICal {
-    LocalDateTime now = LocalDateTime.now();
-    LocalDate weekStart;
-    LocalDate weekEnd;
+    DateTime now = DateTime.now();
+    org.joda.time.DateTime weekStart;
+    org.joda.time.DateTime weekEnd;
+    ICalendar ical;
 
 
     public readICal(String fileName) {
         try {
-            ICalendar ical = Biweekly.parse(new FileReader(fileName)).first();
+            ical = Biweekly.parse(new FileReader(fileName)).first();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,9 +38,22 @@ public class readICal {
         }
     }
 
-    public void setWeek(LocalDateTime now) {
-        java.time.Instant nowInstant = now.toInstant(null);
-        
+    public void setWeek(DateTime now) {
+        int iDayNow = now.getDayOfWeek();
+        weekStart = now.minusDays((iDayNow - 1));
+        weekEnd = now.plusDays(7 - iDayNow);
+    }
+
+    public ICalendar daysInterested() {
+        ICalendar newICal = new ICalendar();
+        for(VEvent event: this.ical.getEvents()) {
+            if(!((ReadableInstant) event.getDateStart()).isBefore(this.weekStart) && !((ReadableInstant) event.getDateStart()).isAfter(this.weekEnd)) {
+                newICal.addEvent(event);
+            }
+        }
+
+        return newICal;
+
     }
 
     // public static void main(String[] args) throws FileNotFoundException, IOException {

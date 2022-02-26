@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\jeffr\\Downloads\\biweekly-0.6.6.jar",
+        "c:\\Users\\jeffr\\Downloads\\jackson-core-2.12.1.jar",
+        "c:\\Users\\jeffr\\Downloads\\vinnie-2.0.2.jar",
+        "c:\\Users\\jeffr\\Downloads\\joda-time-2.10.13.jar"
+    ]
+}
