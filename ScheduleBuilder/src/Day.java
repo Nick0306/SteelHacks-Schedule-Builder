@@ -22,6 +22,10 @@ public class Day {
     public ArrayList<Event> getEvents () {
         return events;
     }
+    
+    public String getDay() {
+    	return day;
+    }
 
     
 }

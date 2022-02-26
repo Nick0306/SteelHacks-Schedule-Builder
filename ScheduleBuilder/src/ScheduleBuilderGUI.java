@@ -145,9 +145,9 @@ public class ScheduleBuilderGUI{
 		JButton btnCompare = new JButton("Compare");
 		btnCompare.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				Schedule[] sArr = new Schedule[users.length];
-				int index;
+				
+				ArrayList<Schedule> sArr = new ArrayList<Schedule>();
+				int index = 0;
 				if(cboWeek.getSelectedItem().equals("Week One")) {
 					index = 0;
 				}else if(cboWeek.getSelectedItem().equals("Week Two")) {
@@ -157,26 +157,26 @@ public class ScheduleBuilderGUI{
 				}else if(cboWeek.getSelectedItem().equals("Week Four")) {
 					index = 3;
 				}
-				for(int i = 0; i < users.length; i++) {
-					sArr[i] = users[i].getSchedule(index);
+				for(int i = 0; i < users.size(); i++) {
+					sArr.set(i, users.get(i).getSchedule(index));
 				}
-				Day[] days = Schedule.compareDays(sArr);
+				Schedule schedule = Schedule.compareDays(sArr);
 				
-				for(Day day : days) {
-					Event[] eArr = day.getEvents();
+				for(Day day : schedule.getSchedule()) {
+					ArrayList<Event> eArr = day.getEvents();
 					
 					txtareaOutput.append("Day: " + day.getDay() + "\n~~~~~~~~~~~" + "\n");
 					for(int i = 0; i < eArr.size(); i++) {
 						txtareaOutput.append("Free between: ");
-						int sHour = (int) eArr[i].getStart;
-						int sMin = (eArr[i].getStart - ((int) eArr[i].getStart)) * 60;
+						int sHour = (int) eArr.get(i).getStart();
+						int sMin = (int)Math.ceil((eArr.get(i).getStart() - ((int) eArr.get(i).getStart())) * 60);
 						txtareaOutput.append(sHour + ":" + sMin);
-						int eHour = (int) eArr[i].getEnd;
-						int eMin = (eArr[i].getEnd - ((int) eArr[i].getEnd)) * 60;
-						txtareOutput.append(" - " + eHour + ":" + eMin);
+						int eHour = (int) eArr.get(i).getEnd();
+						int eMin = (int)Math.ceil((eArr.get(i).getEnd() - ((int) eArr.get(i).getEnd())) * 60);
+						txtareaOutput.append(" - " + eHour + ":" + eMin);
 					}
 				}
-				*/
+				
 			}
 		});
 		btnCompare.setBounds(377, 337, 117, 29);
@@ -185,9 +185,13 @@ public class ScheduleBuilderGUI{
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String eventName = txtEventName.getText();
-				//double sTime = Double.parseDouble(txtSHour.getText()) + (Double.parseDouble(txtSMin.getText())/60);
-				//double eTime = Double.parseDouble(txtEHour.getText()) + (Double.parseDouble(txtEMin.getText())/60);
+				String eventName = txtEventName.getText();
+				double sTime = Double.parseDouble(txtSHour.getText()) + (Double.parseDouble(txtSMin.getText())/60);
+				double eTime = Double.parseDouble(txtEHour.getText()) + (Double.parseDouble(txtEMin.getText())/60);
+				
+				
+				
+				
 				
 			}
 		});

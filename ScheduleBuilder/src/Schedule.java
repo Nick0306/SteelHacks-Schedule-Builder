@@ -21,7 +21,10 @@ public class Schedule {
     public Day getDay (int i) {
         return schedOfWeek[i];
     }
-
+    
+    public Day[] getSchedule() {
+    	return schedOfWeek;
+    }
 
     public static Schedule compareDays (ArrayList<Schedule> schedules) {
         Schedule overlayed = new Schedule();
