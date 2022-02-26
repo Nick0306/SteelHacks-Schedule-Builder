@@ -73,14 +73,14 @@ public class Schedule {
             if (nums[k]) {
                 Day[] days = new Day[schedules.size()];
                 for (int i = 0; i < schedules.size(); i++)
-                    days[i] = schedules.get(i).getDay(i);
+                    days[i] = schedules.get(i).getDay(k);
                 ArrayList<Event> full = new ArrayList<Event>();
                 for (int i = 0; i < days.length; i++) {
                     ArrayList<Event> events = days[i].getEvents();
                     //System.out.println(days.length);
                     for (int j = 0; j < events.size(); j++) full.add(events.get(j));
                 }
-                Schedule.print(full);
+                //Schedule.print(full);
                 for (int i = 0; i < full.size()-1; i++) {
                     int idx = i;
                     for (int j = i+1; j < full.size(); j++) 
@@ -111,10 +111,33 @@ public class Schedule {
                 }
                 //Schedule.print(full);
 
-                overlayed.getDay(k).setEvents(full);
+                overlayed.getDay(k).setEvents(full); 
             }
         }
-        return overlayed;
+        double start = 8;
+        double end = 24;
+        Schedule free = new Schedule("Free times");
+        //System.out.println(overlayed.toString());
+
+        for (int i = 0; i < free.getSchedule().length; i++) {
+            ArrayList<Event> eventsOnDay = overlayed.getSchedule()[i].getEvents();
+            double[] times = new double[2 * eventsOnDay.size()];
+            int pos = 0;
+            if (times.length > 0) {
+                for (Event e: eventsOnDay) {
+                    times[pos] = e.getStart();
+                    times[pos+1] = e.getEnd();
+                    pos+=2;
+                }
+                free.getDay(i).addEvent(8, times[0], "");
+                for (int j = 1; j < times.length-1; j+=2) {
+                    free.getDay(i).addEvent(times[j], times[j+1], "");
+                }
+                free.getDay(i).addEvent(times[times.length-1], 24, "");
+            }
+        }
+
+        return free;
 	}
 
     public static void print (ArrayList<Event> full) {
