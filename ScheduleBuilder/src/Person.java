@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Person {
     
-    private ArrayList<Schedule> schedules;
+    private Schedule[] schedules;
+    private int size = 0;
     private String name;
 
     public Person (String name) {
@@ -10,6 +11,7 @@ public class Person {
     }
 
     public void addSchedule (Schedule sch) {
-        schedules.add(sch);
+        schedules[size] = sch;
+        size++;
     }
 }

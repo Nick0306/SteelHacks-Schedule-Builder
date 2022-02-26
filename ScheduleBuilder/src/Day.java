@@ -14,18 +14,20 @@ public class Day {
         this.day = day;
     }
 
-    public void addEvent (double start, double end) {
-
+    public void addEvent (double start, double end, String title) {
+        events.add(new Event(start, end, title));
     }
 
     // Event Inner Class
     private class Event {
 
-        private TimeFrame time;
+        private double start;
+        private double end;
         private String title;
 
-        private Event (TimeFrame time, String title) {
-            this.time = time;
+        private Event (double start, double end, String title) {
+            this.start = start;
+            this.end = end;
             this.title = title;
         }
     }
