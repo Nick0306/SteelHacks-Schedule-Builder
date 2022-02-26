@@ -35,7 +35,7 @@ import javax.swing.JTextArea;
 
 public class ScheduleBuilderGUI{
 	
-	private ArrayList<Person> users;
+	private ArrayList<Person> users = new ArrayList<Person>();
 	
 	public JFrame frmWindow;
 	private JTextField txtEventName;
@@ -43,6 +43,7 @@ public class ScheduleBuilderGUI{
 	private JTextField txtSMin;
 	private JTextField txtEHour;
 	private JTextField txtEMin;
+	private JComboBox cboUser;
 	
 	public ScheduleBuilderGUI(){
 		frmWindow = new JFrame("ScheduleBuilder");
@@ -66,8 +67,13 @@ public class ScheduleBuilderGUI{
 		cboWeek.setBounds(352, 155, 119, 33);
 		frmWindow.getContentPane().add(cboWeek);
 		
-		@SuppressWarnings("unchecked")
-		JComboBox cboUser = new JComboBox(users.toArray());
+	
+		
+		if(users.size() > 0) {
+			cboUser = new JComboBox(users.toArray());
+		}else {
+			cboUser = new JComboBox();
+		}
 		cboUser.setBounds(364, 21, 109, 26);
 		frmWindow.getContentPane().add(cboUser);
 		
@@ -132,9 +138,13 @@ public class ScheduleBuilderGUI{
 				
 				String name = JOptionPane.showInputDialog("Name of New User");
 				users.add(new Person(name));
-				Person[] people = (Person[])users.toArray();
+				//Person[] people = (Person[])users.toArray();
 				//cboUser = new JComboBox(people);
-				cboUser.update(cboUser.getGraphics());
+				cboUser.addItem(name);
+				for(Person use : users) {
+					System.out.println(use.getName());
+				}
+				
 				
 			}
 		});
