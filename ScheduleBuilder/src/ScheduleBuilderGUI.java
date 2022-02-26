@@ -66,6 +66,11 @@ public class ScheduleBuilderGUI{
 		cboWeek.setBounds(352, 155, 119, 33);
 		frmWindow.getContentPane().add(cboWeek);
 		
+		@SuppressWarnings("unchecked")
+		JComboBox cboUser = new JComboBox(users.toArray());
+		cboUser.setBounds(364, 21, 109, 26);
+		frmWindow.getContentPane().add(cboUser);
+		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEventName.setForeground(Color.LIGHT_GRAY);
@@ -120,17 +125,16 @@ public class ScheduleBuilderGUI{
 		lblCOLON1.setBounds(66, 155, 20, 26);
 		frmWindow.getContentPane().add(lblCOLON1);
 		
-		JComboBox cboUser = new JComboBox();
-		cboUser.setBounds(364, 21, 109, 26);
-		frmWindow.getContentPane().add(cboUser);
-		
 		JButton btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				
 				String name = JOptionPane.showInputDialog("Name of New User");
 				users.add(new Person(name));
-				
+				Person[] people = (Person[])users.toArray();
+				//cboUser = new JComboBox(people);
+				cboUser.update(cboUser.getGraphics());
 				
 			}
 		});
@@ -189,8 +193,30 @@ public class ScheduleBuilderGUI{
 				double sTime = Double.parseDouble(txtSHour.getText()) + (Double.parseDouble(txtSMin.getText())/60);
 				double eTime = Double.parseDouble(txtEHour.getText()) + (Double.parseDouble(txtEMin.getText())/60);
 				
+				int week = 0;
+				if(cboWeek.getSelectedItem().equals("Week One")) {
+					week = 0;
+				}else if(cboWeek.getSelectedItem().equals("Week Two")) {
+					week = 1;
+				}else if(cboWeek.getSelectedItem().equals("Week Three")) {
+					week = 2;
+				}else if(cboWeek.getSelectedItem().equals("Week Four")) {
+					week = 3;
+				}
 				
+				String day = (String) cboDays.getSelectedItem();
+				String userName = (String) cboUser.getSelectedItem();
 				
+				Person user = null;
+				
+				for(Person per : users) {
+					if(per.getName().equals(userName)) {
+						user = per;
+						break;
+					}
+				}
+				
+				user.addEvent(week, day, eventName, sTime, eTime);
 				
 				
 			}

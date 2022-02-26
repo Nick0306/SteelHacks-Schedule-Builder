@@ -26,6 +26,10 @@ public class Day {
     public String getDay() {
     	return day;
     }
+    
+    public void addEvent(String eventName, double startTime, double endTime) {
+    	events.add(new Event(startTime, endTime, eventName));
+    }
 
     public String toString () {
         String s = "";

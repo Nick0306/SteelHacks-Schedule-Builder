@@ -40,6 +40,18 @@ public class Schedule {
         }
         return s;
     }
+    
+    public void addEvent(String day, String eventName, double startTime, double endTime) {
+    	Day dayOfWeek = null;
+    	for(Day days : schedOfWeek) {
+    		if(days.getDay().equals(day)) {
+    			dayOfWeek = days;
+    			break;
+    		}
+    	}
+    	
+    	dayOfWeek.addEvent(eventName, startTime, endTime);
+    }
 
     public static Schedule compareDays (ArrayList<Schedule> schedules) {
         Schedule overlayed = new Schedule();
