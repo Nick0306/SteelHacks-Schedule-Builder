@@ -5,12 +5,13 @@ public class Day {
     private String day;
     private ArrayList<Event> events;
 
-    public Day (String day, int dayOfMonth, String month, int year) {
+    public Day (String day) {
         this.day = day;
         events = new ArrayList<Events>();
     }
 
-    public Day (String day) {
+    public Day (ArrayList<Events> events, String day) {
+        this.events = events;
         this.day = day;
     }
 
@@ -18,17 +19,9 @@ public class Day {
         events.add(new Event(start, end, title));
     }
 
-    // Event Inner Class
-    private class Event {
-
-        private double start;
-        private double end;
-        private String title;
-
-        private Event (double start, double end, String title) {
-            this.start = start;
-            this.end = end;
-            this.title = title;
-        }
+    public ArrayList<Event> returnEvents () {
+        return events;
     }
+
+    
 }

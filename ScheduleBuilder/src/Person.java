@@ -14,4 +14,8 @@ public class Person {
         schedules[size] = sch;
         size++;
     }
+
+    public Schedule getSchedule (int i) {
+        return schedules[i];
+    }
 }
