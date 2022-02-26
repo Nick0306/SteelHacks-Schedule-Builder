@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import java.awt.SystemColor;
 
 public class ScheduleBuilderGUI{
 	
@@ -33,23 +34,27 @@ public class ScheduleBuilderGUI{
 		
 		frmWindow = new JFrame("ScheduleBuilder");
 		frmWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmWindow.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frmWindow.getContentPane().setBackground(new Color(184,186,207));
 		frmWindow.getContentPane().setLayout(null);
 		frmWindow.setBounds(100,100,620,520);
 		
 		lblTitle = new JLabel("SCHEDULE BUILDER");
+		lblTitle.setForeground(new Color(49,61,90));
 		lblTitle.setFont(new Font("LEMON MILK", Font.BOLD | Font.ITALIC, 20));
 		lblTitle.setBounds(19, 25, 220, 33);
 		
 		cboDays = new JComboBox(new String[] {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"});
 		cboDays.setBounds(446, 248, 148, 33);
+		cboDays.setForeground(new Color(115,98,138));
 		
 		cboWeek = new JComboBox(new String[] {"Week One", "Week Two", "Week Three", "Week Four"});
 		cboWeek.setBounds(475, 154, 119, 33);
+		cboWeek.setForeground(new Color(115,98,138));
 		
 		
 		cboUser = new JComboBox();
 		cboUser.setBounds(485, 20, 109, 26);
+		cboUser.setForeground(new Color(115,98,138));
 		
 		
 		
@@ -229,10 +234,22 @@ public class ScheduleBuilderGUI{
 					}
 				}
 				//System.out.println(user.getName());
+				boolean override = false;
 				
-				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
+				boolean successful = user.addEvent(week, day, eventName, sTime, eTime, override);
 				if(successful) {
 					txtareaOutput.append(eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~~~\n");
+				}else {
+					int input = JOptionPane.showConfirmDialog(null, "You tried to add " + eventName + " to your schedule, and it conflicts with something else. Do you wish to have them overlap?");
+					if(input == 0) {
+						override = true;
+					}
+					if(override == true) {
+						successful = user.addEvent(week, day, eventName, sTime, eTime, override);
+						if(successful){
+							txtareaOutput.append(eventName + " was successfully added for " + user.getName() + " on " + day + "!\n~~~~~~~~~~~~~~~~~~~~~~~\n");
+						}
+					}
 				}
 				
 				
@@ -299,13 +316,22 @@ public class ScheduleBuilderGUI{
 		btnImportSchedule = new JButton("Import Schedule");
 		btnImportSchedule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String icsPath = JOptionPane.showInputDialog("Please provide the file path to your Calendar's ICS file.");
+				//Jeffs Implementation
+				return;
 			}
 		});
 		
 		
 		
 		//String name = JOptionPane.showInputDialog("Name of New User");
+		
+		
+		btnImportSchedule.setForeground(new Color(115,98,138));
+		btnShowSchedule.setForeground(new Color(115,98,138));
+		btnAddUser.setForeground(new Color(115,98,138));
+		btnCompare.setForeground(new Color(115,98,138));
+		btnAddEvent.setForeground(new Color(115,98,138));
 		
 		btnImportSchedule.setBounds(301, 19, 171, 29);
 		btnShowSchedule.setBounds(359, 437, 117, 29);
