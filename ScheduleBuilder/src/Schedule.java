@@ -41,7 +41,7 @@ public class Schedule {
         return s;
     }
     
-    public boolean addEvent(String day, String eventName, double startTime, double endTime) {
+    public void addEvent(String day, String eventName, double startTime, double endTime) {
     	Day dayOfWeek = null;
     	for(Day days : schedOfWeek) {
     		if(days.getDay().equals(day)) {
@@ -50,11 +50,7 @@ public class Schedule {
     		}
     	}
     	
-    	boolean added = dayOfWeek.addEvent(eventName, startTime, endTime);
-    	if(added) {
-    		return true;
-    	}
-    	return false;
+    	dayOfWeek.addEvent(eventName, startTime, endTime);
     }
 
     public static Schedule compareDays (ArrayList<Schedule> schedules) {
