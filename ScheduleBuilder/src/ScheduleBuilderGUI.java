@@ -210,7 +210,9 @@ public class ScheduleBuilderGUI{
 				}
 				
 				String day = (String) cboDays.getSelectedItem();
+				System.out.println(day);
 				String userName = (String) cboUser.getSelectedItem();
+				System.out.println(userName);
 				
 				Person user = null;
 				
@@ -220,6 +222,7 @@ public class ScheduleBuilderGUI{
 						break;
 					}
 				}
+				System.out.println(user.getName());
 				
 				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
 				if(successful) {

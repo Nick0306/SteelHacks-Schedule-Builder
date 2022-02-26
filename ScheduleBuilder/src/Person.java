@@ -8,6 +8,9 @@ public class Person {
 
     public Person (String name) {
         this.name = name;
+        for(int i = 0; i < schedules.length; i++) {
+        	schedules[i] =  new Schedule("Week " + i+1);
+        }
     }
     
     public boolean addEvent(int week, String day, String eventName, double startTime, double endTime) {
