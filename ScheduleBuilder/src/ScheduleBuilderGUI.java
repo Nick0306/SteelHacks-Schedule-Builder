@@ -1,5 +1,6 @@
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
@@ -40,9 +41,10 @@ public class ScheduleBuilderGUI{
 	public JFrame frmWindow;
 	private JLabel lblTitle, lblCOLON, lblCOLON1;
 	private JTextField txtEventName, txtSHour, txtSMin, txtEHour, txtEMin;
-	private JButton btnAddUser, btnCompare, btnAddEvent;
+	private JButton btnAddUser, btnCompare, btnAddEvent, btnShowSchedule;
 	private JComboBox cboUser, cboDays, cboWeek;
 	private JTextArea txtareaOutput;
+	private JScrollPane sp;
 	
 	public ScheduleBuilderGUI(){
 		
@@ -57,18 +59,16 @@ public class ScheduleBuilderGUI{
 		lblTitle.setBounds(19, 25, 220, 33);
 		
 		cboDays = new JComboBox(new String[] {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"});
-		cboDays.setBounds(323, 248, 148, 33);
+		cboDays.setBounds(446, 248, 148, 33);
 		
 		cboWeek = new JComboBox(new String[] {"Week One", "Week Two", "Week Three", "Week Four"});
-		cboWeek.setBounds(352, 155, 119, 33);
+		cboWeek.setBounds(475, 154, 119, 33);
 		
-	
-		if(users.size() > 0) {
-			cboUser = new JComboBox(users.toArray());
-		}else {
-			cboUser = new JComboBox();
-		}
-		cboUser.setBounds(364, 21, 109, 26);
+		
+		cboUser = new JComboBox();
+		cboUser.setBounds(485, 20, 109, 26);
+		
+		
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -112,8 +112,14 @@ public class ScheduleBuilderGUI{
 		
 		txtareaOutput = new JTextArea();
 		txtareaOutput.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		txtareaOutput.setBounds(19, 235, 301, 95);
-		frmWindow.setBounds(100,100,500,400);
+		
+		
+		
+		sp = new JScrollPane(txtareaOutput);
+		sp.setBounds(19, 235, 301, 180);
+		
+		
+		frmWindow.setBounds(100,100,600,500);
 		
 		lblCOLON = new JLabel(":");
 		lblCOLON.setHorizontalAlignment(SwingConstants.CENTER);
@@ -226,16 +232,19 @@ public class ScheduleBuilderGUI{
 				
 				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
 				if(successful) {
-					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~\n" + eventName + " was successfully added!");
+					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~~~\n" + eventName + " was successfully added for" + user.getName() + "!");
 				}
 				
 				
 			}
 		});
 		
+		btnShowSchedule = new JButton("Show Schedule");
 		
-		btnAddUser.setBounds(6, 337, 117, 29);
-		btnCompare.setBounds(377, 337, 117, 29);
+		
+		btnShowSchedule.setBounds(359, 437, 117, 29);
+		btnAddUser.setBounds(6, 437, 117, 29);
+		btnCompare.setBounds(477, 437, 117, 29);
 		btnAddEvent.setBounds(19, 190, 91, 33);
 		
 		
@@ -249,12 +258,15 @@ public class ScheduleBuilderGUI{
 		frmWindow.getContentPane().add(txtSMin);
 		frmWindow.getContentPane().add(txtEHour);
 		frmWindow.getContentPane().add(txtEMin);
-		frmWindow.getContentPane().add(txtareaOutput);
+		frmWindow.getContentPane().add(sp);
 		frmWindow.getContentPane().add(lblCOLON);
 		frmWindow.getContentPane().add(lblCOLON1);
 		frmWindow.getContentPane().add(btnAddUser);
 		frmWindow.getContentPane().add(btnCompare);
 		frmWindow.getContentPane().add(btnAddEvent);
+		frmWindow.getContentPane().add(btnShowSchedule);
+		
+		
 		
 		
 		frmWindow.setVisible(true);
