@@ -21,4 +21,8 @@ public class Event {
     public String getTitle () {
         return title;
     }
+
+    public String toString () {
+        return title + " " + start + " " + end;
+    }
 }
