@@ -27,8 +27,9 @@ public class Day {
     	return day;
     }
     
-    public void addEvent(String eventName, double startTime, double endTime) {
+    public boolean addEvent(String eventName, double startTime, double endTime) {
     	events.add(new Event(startTime, endTime, eventName));
+    	return true;
     }
 
     public String toString () {

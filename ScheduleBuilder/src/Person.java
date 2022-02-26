@@ -10,9 +10,13 @@ public class Person {
         this.name = name;
     }
     
-    public void addEvent(int week, String day, String eventName, double startTime, double endTime) {
+    public boolean addEvent(int week, String day, String eventName, double startTime, double endTime) {
     	Schedule schedule = schedules[week];
-    	schedule.addEvent(day, eventName, startTime, endTime);
+    	boolean added = schedule.addEvent(day, eventName, startTime, endTime);
+    	if(added) {
+    		return true;
+    	}
+    	return false;
     }
     
     

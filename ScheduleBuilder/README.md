@@ -11,9 +11,10 @@ builder allows multiple people to input their schedules for the week and collect
 Our schedule builder enables a user to enter events for many people into the user-friendly user interface. The application prompts the user for the person's name, the week of the
 month, the day of the week, the event title, the event start time, and the event end time. Once the user is done submitting all of the events, they will click the compare button.
 The compare button is what runs our algorithm and determines the availabilities across all of the schedules, where it is then displayed back to the user.
-For creating our project, we used two different programs to best implement our ideas. First we made multiple java classes to hold attributes for the event, the day of the week,
+
+To create our project, we used two different programs to best implement our ideas. First we made multiple java classes to hold attributes for the event, the day of the week,
 and the schedule, These classes not only hold the attributes, but they also hold the all of the logic for inputting events, and comparing schedules. We also used WindowBuilder
-create  Java GUI application to allow the user to interact with our code.
+create Java GUI application to allow the user to interact with our program.
 
 Some of the challenges you faced and features you hope to implement in the future.
 
@@ -27,6 +28,16 @@ The workspace contains two folders by default, where:
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+
+## Running Our Project
+To run our project you will only need access to src, where all of the class files are stored, including the "ScheduleBuilderGUI.java". Once downloaded, the user will compile
+ScheduleBuilder.java and run it through the command line, and they can use the program freely from there.
+
+## Using the project
+
+
+##
+
 
 ## Dependency Management
 
