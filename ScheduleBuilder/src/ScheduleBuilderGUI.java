@@ -38,51 +38,43 @@ public class ScheduleBuilderGUI{
 	private ArrayList<Person> users = new ArrayList<Person>();
 	
 	public JFrame frmWindow;
-	private JTextField txtEventName;
-	private JTextField txtSHour;
-	private JTextField txtSMin;
-	private JTextField txtEHour;
-	private JTextField txtEMin;
-	private JComboBox cboUser;
+	private JLabel lblTitle, lblCOLON, lblCOLON1;
+	private JTextField txtEventName, txtSHour, txtSMin, txtEHour, txtEMin;
+	private JButton btnAddUser, btnCompare, btnAddEvent;
+	private JComboBox cboUser, cboDays, cboWeek;
+	private JTextArea txtareaOutput;
 	
 	public ScheduleBuilderGUI(){
+		
+		
 		frmWindow = new JFrame("ScheduleBuilder");
 		frmWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWindow.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmWindow.getContentPane().setLayout(null);
 		
-		JLabel lblTitle = new JLabel("SCHEDULE BUILDER");
+		lblTitle = new JLabel("SCHEDULE BUILDER");
 		lblTitle.setFont(new Font("LEMON MILK", Font.BOLD | Font.ITALIC, 20));
 		lblTitle.setBounds(19, 25, 220, 33);
-		frmWindow.getContentPane().add(lblTitle);
 		
-		@SuppressWarnings("unchecked")
-		JComboBox cboDays = new JComboBox(new String[] {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"});
-		//cboDays.setToolTipText("Pick A Day");
+		cboDays = new JComboBox(new String[] {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"});
 		cboDays.setBounds(323, 248, 148, 33);
-		frmWindow.getContentPane().add(cboDays);
 		
-		@SuppressWarnings("unchecked")
-		JComboBox cboWeek = new JComboBox(new String[] {"Week One", "Week Two", "Week Three", "Week Four"});
+		cboWeek = new JComboBox(new String[] {"Week One", "Week Two", "Week Three", "Week Four"});
 		cboWeek.setBounds(352, 155, 119, 33);
-		frmWindow.getContentPane().add(cboWeek);
 		
 	
-		
 		if(users.size() > 0) {
 			cboUser = new JComboBox(users.toArray());
 		}else {
 			cboUser = new JComboBox();
 		}
 		cboUser.setBounds(364, 21, 109, 26);
-		frmWindow.getContentPane().add(cboUser);
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEventName.setForeground(Color.LIGHT_GRAY);
 		txtEventName.setText("Event Name");
 		txtEventName.setBounds(19, 88, 130, 26);
-		frmWindow.getContentPane().add(txtEventName);
 		txtEventName.setColumns(10);
 		
 		txtSHour = new JTextField();
@@ -91,7 +83,6 @@ public class ScheduleBuilderGUI{
 		txtSHour.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSHour.setText("HOUR");
 		txtSHour.setBounds(19, 126, 46, 26);
-		frmWindow.getContentPane().add(txtSHour);
 		txtSHour.setColumns(10);
 		
 		txtSMin = new JTextField();
@@ -100,7 +91,7 @@ public class ScheduleBuilderGUI{
 		txtSMin.setText("MIN");
 		txtSMin.setColumns(10);
 		txtSMin.setBounds(88, 126, 46, 26);
-		frmWindow.getContentPane().add(txtSMin);
+		
 		
 		txtEHour = new JTextField();
 		txtEHour.setText("HOUR");
@@ -109,7 +100,7 @@ public class ScheduleBuilderGUI{
 		txtEHour.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		txtEHour.setColumns(10);
 		txtEHour.setBounds(19, 157, 46, 26);
-		frmWindow.getContentPane().add(txtEHour);
+		
 		
 		txtEMin = new JTextField();
 		txtEMin.setText("MIN");
@@ -117,27 +108,35 @@ public class ScheduleBuilderGUI{
 		txtEMin.setForeground(Color.LIGHT_GRAY);
 		txtEMin.setColumns(10);
 		txtEMin.setBounds(88, 157, 46, 26);
-		frmWindow.getContentPane().add(txtEMin);
 		
 		
+		txtareaOutput = new JTextArea();
+		txtareaOutput.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		txtareaOutput.setBounds(19, 235, 301, 95);
+		frmWindow.setBounds(100,100,500,400);
 		
-		JLabel lblCOLON = new JLabel(":");
+		lblCOLON = new JLabel(":");
 		lblCOLON.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCOLON.setBounds(66, 126, 20, 26);
-		frmWindow.getContentPane().add(lblCOLON);
 		
-		JLabel lblCOLON1 = new JLabel(":");
+		
+		lblCOLON1 = new JLabel(":");
 		lblCOLON1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCOLON1.setBounds(66, 155, 20, 26);
-		frmWindow.getContentPane().add(lblCOLON1);
 		
-		JButton btnAddUser = new JButton("Add User");
+		
+		btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				
 				String name = JOptionPane.showInputDialog("Name of New User");
+				if(name == null) {
+					return;
+				}
 				users.add(new Person(name));
+				txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~\n" + name + " was successfully added to the User List!");
+				
 				//Person[] people = (Person[])users.toArray();
 				//cboUser = new JComboBox(people);
 				cboUser.addItem(name);
@@ -148,15 +147,11 @@ public class ScheduleBuilderGUI{
 				
 			}
 		});
-		btnAddUser.setBounds(6, 337, 117, 29);
-		frmWindow.getContentPane().add(btnAddUser);
 		
-		JTextArea txtareaOutput = new JTextArea();
-		txtareaOutput.setBounds(19, 235, 267, 95);
-		frmWindow.getContentPane().add(txtareaOutput);
-		frmWindow.setBounds(100,100,500,400);
 		
-		JButton btnCompare = new JButton("Compare");
+		
+		
+		btnCompare = new JButton("Compare");
 		btnCompare.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -193,10 +188,10 @@ public class ScheduleBuilderGUI{
 				
 			}
 		});
-		btnCompare.setBounds(377, 337, 117, 29);
-		frmWindow.getContentPane().add(btnCompare);
 		
-		JButton btnAddEvent = new JButton("Add Event");
+		
+		
+		btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String eventName = txtEventName.getText();
@@ -226,12 +221,36 @@ public class ScheduleBuilderGUI{
 					}
 				}
 				
-				user.addEvent(week, day, eventName, sTime, eTime);
+				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
+				if(successful) {
+					txtareaOutput.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~\n" + eventName + " was successfully added!");
+				}
 				
 				
 			}
 		});
+		
+		
+		btnAddUser.setBounds(6, 337, 117, 29);
+		btnCompare.setBounds(377, 337, 117, 29);
 		btnAddEvent.setBounds(19, 190, 91, 33);
+		
+		
+		
+		frmWindow.getContentPane().add(lblTitle);
+		frmWindow.getContentPane().add(cboDays);
+		frmWindow.getContentPane().add(cboWeek);
+		frmWindow.getContentPane().add(cboUser);
+		frmWindow.getContentPane().add(txtEventName);
+		frmWindow.getContentPane().add(txtSHour);
+		frmWindow.getContentPane().add(txtSMin);
+		frmWindow.getContentPane().add(txtEHour);
+		frmWindow.getContentPane().add(txtEMin);
+		frmWindow.getContentPane().add(txtareaOutput);
+		frmWindow.getContentPane().add(lblCOLON);
+		frmWindow.getContentPane().add(lblCOLON1);
+		frmWindow.getContentPane().add(btnAddUser);
+		frmWindow.getContentPane().add(btnCompare);
 		frmWindow.getContentPane().add(btnAddEvent);
 		
 		
