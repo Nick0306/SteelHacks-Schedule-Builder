@@ -42,6 +42,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## Credits
 Contributors:
+
 Nick Usme || github: Nick0306 || Discord: NICKelodeon#8368
 
 Toby Beidler-Shenk || github: tbeidlershenk || Discord: tobeee#2848
