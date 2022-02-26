@@ -193,10 +193,18 @@ public class ScheduleBuilderGUI{
 						txtareaOutput.append("\nFree between: ");
 						int sHour = (int) eArr.get(i).getStart();
 						int sMin = (int)Math.ceil((eArr.get(i).getStart() - ((int) eArr.get(i).getStart())) * 60);
-						txtareaOutput.append(sHour + ":" + sMin);
+						String sMinute = "00";
+						if(sMin != 0) {
+							sMinute = sMin+"";
+						}
+						txtareaOutput.append(sHour + ":" + sMinute);
 						int eHour = (int) eArr.get(i).getEnd();
 						int eMin = (int)Math.ceil((eArr.get(i).getEnd() - ((int) eArr.get(i).getEnd())) * 60);
-						txtareaOutput.append(" - " + eHour + ":" + eMin);
+						String eMinute = "00";
+						if(eMin != 0) {
+							eMinute = eMin+"";
+						}
+						txtareaOutput.append(" - " + eHour + ":" + eMinute);
 					}
 					//txtareaOutput.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				}
@@ -237,7 +245,7 @@ public class ScheduleBuilderGUI{
 						break;
 					}
 				}
-				System.out.println(user.getName());
+				//System.out.println(user.getName());
 				
 				boolean successful = user.addEvent(week, day, eventName, sTime, eTime);
 				if(successful) {
@@ -249,6 +257,58 @@ public class ScheduleBuilderGUI{
 		});
 		
 		btnShowSchedule = new JButton("Show Schedule");
+		btnShowSchedule.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int week = 0;
+				if(cboWeek.getSelectedItem().equals("Week One")) {
+					week = 0;
+				}else if(cboWeek.getSelectedItem().equals("Week Two")) {
+					week = 1;
+				}else if(cboWeek.getSelectedItem().equals("Week Three")) {
+					week = 2;
+				}else if(cboWeek.getSelectedItem().equals("Week Four")) {
+					week = 3;
+				}
+				
+				
+				String userName = (String) cboUser.getSelectedItem();
+				Person user = null;
+				
+				for(Person per : users) {
+					if(per.getName().equals(userName)) {
+						user = per;
+						break;
+					}
+				}
+				
+				
+				Schedule s = user.getSchedule(week);
+				for(Day days : s.getSchedule()) {
+					for(Event event : days.getEvents()) {
+						int sHour = (int) event.getStart();
+						int sMin = (int)Math.ceil((event.getStart() - ((int) event.getStart())) * 60);
+						int eHour = (int) event.getEnd();
+						int eMin = (int)Math.ceil((event.getEnd() - ((int) event.getEnd())) * 60);
+						
+						String sMinute = "00";
+						String eMinute = "00";
+						if(sMin != 0) {
+							sMinute = sMin+"";
+						}
+						if(eMin != 0) {
+							eMinute = eMin+"";
+						}
+						
+						
+						txtareaOutput.append("\nEvent: " + event.getTitle() + "\n");
+						txtareaOutput.append(sHour + ":" + sMinute + " - " + eHour + ":" + eMinute);
+					}
+				}
+				
+				
+				
+			}
+		});
 		
 		
 		btnShowSchedule.setBounds(359, 437, 117, 29);
