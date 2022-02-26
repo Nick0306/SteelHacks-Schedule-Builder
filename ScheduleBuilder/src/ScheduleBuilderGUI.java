@@ -30,8 +30,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class ScheduleBuilderGUI{
+	
+	private Person[] users;
 	
 	public JFrame frmWindow;
 	private JTextField txtEventName;
@@ -64,7 +67,7 @@ public class ScheduleBuilderGUI{
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEventName.setForeground(Color.LIGHT_GRAY);
 		txtEventName.setText("Event Name");
-		txtEventName.setBounds(19, 172, 130, 26);
+		txtEventName.setBounds(19, 100, 130, 26);
 		frmWindow.getContentPane().add(txtEventName);
 		txtEventName.setColumns(10);
 		
@@ -73,7 +76,7 @@ public class ScheduleBuilderGUI{
 		txtHour.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		txtHour.setHorizontalAlignment(SwingConstants.CENTER);
 		txtHour.setText("HOUR");
-		txtHour.setBounds(18, 210, 46, 26);
+		txtHour.setBounds(19, 138, 46, 26);
 		frmWindow.getContentPane().add(txtHour);
 		txtHour.setColumns(10);
 		
@@ -82,12 +85,12 @@ public class ScheduleBuilderGUI{
 		txtMin.setHorizontalAlignment(SwingConstants.CENTER);
 		txtMin.setText("MIN");
 		txtMin.setColumns(10);
-		txtMin.setBounds(87, 209, 46, 26);
+		txtMin.setBounds(89, 137, 46, 26);
 		frmWindow.getContentPane().add(txtMin);
 		
 		JLabel lblCOLON = new JLabel(":");
 		lblCOLON.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCOLON.setBounds(66, 209, 20, 26);
+		lblCOLON.setBounds(66, 137, 20, 26);
 		frmWindow.getContentPane().add(lblCOLON);
 		
 		JComboBox cboUser = new JComboBox();
@@ -97,21 +100,58 @@ public class ScheduleBuilderGUI{
 		JButton btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnAddUser.setBounds(6, 337, 117, 29);
 		frmWindow.getContentPane().add(btnAddUser);
 		
+		JTextArea txtareaOutput = new JTextArea();
+		txtareaOutput.setBounds(19, 235, 267, 95);
+		frmWindow.getContentPane().add(txtareaOutput);
+		frmWindow.setBounds(100,100,500,400);
+		
 		JButton btnCompare = new JButton("Compare");
+		btnCompare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				Schedule[] sArr = new Schedule[users.length];
+				int index;
+				if(comboBox.getSelectedItem().equals("Week One")) {
+					index = 0;
+				}else if(comboBox.getSelectedItem().equals("Week Two")) {
+					index = 1;
+				}else if(comboBox.getSelectedItem().equals("Week Three")) {
+					index = 2;
+				}else if(comboBox.getSelectedItem().equals("Week Four")) {
+					index = 3;
+				}
+				for(int i = 0; i < users.length; i++) {
+					sArr[i] = users[i].getSchedule(index);
+				}
+				Day[] days = Schedule.compareDays(sArr);
+				
+				for(Day day : days) {
+					Event[] eArr = day.getEvents();
+					
+					txtareaOutput.append("Day: " + day.getDay() + "\n~~~~~~~~~~~" + "\n");
+					for(int i = 0; i < eArr.size(); i++) {
+						txtareaOutput.append("Free between: " + day.getEvents);
+						//cast to int for hour, subtract cast from og to get decimal, multiply decimal by 60 for minutes;
+					}
+				}
+				*/
+			}
+		});
 		btnCompare.setBounds(377, 337, 117, 29);
 		frmWindow.getContentPane().add(btnCompare);
 		
 		JButton btnAddEvent = new JButton("Add Event");
-		btnAddEvent.setBounds(18, 248, 91, 33);
+		btnAddEvent.setBounds(19, 176, 91, 33);
 		
 		
 		frmWindow.getContentPane().add(btnAddEvent);
-		frmWindow.setBounds(100,100,500,400);
+		
 		
 		
 		
