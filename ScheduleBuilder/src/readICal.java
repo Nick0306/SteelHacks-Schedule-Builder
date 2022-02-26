@@ -64,15 +64,26 @@ public class readICal {
 
     public void setEventsToDays(ICalendar newICal) {
         Schedule schedule = new Schedule("Person 1");
+        int count = 0;
         for(VEvent event : newICal.getEvents()) {
             DateStart eventStart = event.getDateStart();
             DateEnd eventEnd = event.getDateEnd();
 
             if(eventStart != null) {
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-                DateFormat fmtESdf.format(eventStart);
-                df.format(eventEnd);
-                DateTime dt = new DateTime(df);
+                String start = df.format(eventStart);
+                String end = df.format(eventEnd);
+                System.out.println(start + "     " + end);
+                int startHours = Integer.parseInt(start.substring(11,13));
+                double startMins = Integer.parseInt(start.substring(14,16));
+                int endHours = Integer.parseInt(end.substring(11,13));
+                double endMins = Integer.parseInt(end.substring(14,16));
+                double doubleStart = startHours + (startMins / 60);
+                double doubleEnd = endHours + (endMins / 60);
+
+                
+                //DateTime dt = new DateTime(df);
+                //schedule.getDay(count).addEvent()
             }
             
         }
