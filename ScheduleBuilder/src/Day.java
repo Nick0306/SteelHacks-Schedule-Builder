@@ -16,6 +16,28 @@ public class Day {
         events = new ArrayList<Events>();
     }
 
+    public Day (String day) {
+        this.day = day;
+    }
+
+    public setData (int dayOfMonth, String month, int year) {
+        this.dayOfMonth = dayOfMonth;
+        this.month = month;
+        this.year = year;
+    }
+
+    public void setDayOfMonth (int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
+    }
+    
+    public void setMonth (String month) {
+        this.month = month;
+    }
+
+    public void setYear (int year) {
+        this.year = year;
+    }
+
     private class Event {
 
         private TimeFrame time;
