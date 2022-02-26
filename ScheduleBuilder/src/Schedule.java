@@ -6,11 +6,13 @@ public class Schedule {
     //Sunday is 0 and Saturday is 6
     private static String[] week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private Day[] schedOfWeek = new Day[7];
+    private int size = 0;
     private String title;
 
     public Schedule (String title) {
         for (int i = 0; i < week.length; i++)
-            schedOfWeek[i] = week[i];
+            schedOfWeek[i] = new Day(week[i]);
+        size = 7;
         this.title = title;
     }
 
@@ -26,6 +28,11 @@ public class Schedule {
     	return schedOfWeek;
     }
 
+    public void add (Day day) {
+        schedOfWeek[size] = day;
+        size++;
+    }
+
     public static Schedule compareDays (ArrayList<Schedule> schedules) {
         Schedule overlayed = new Schedule();
 		for (int k = 0; k < 7; k++) {
@@ -39,12 +46,12 @@ public class Schedule {
             }
             for (int i = 0; i < full.size()-1; i++) {
                 int idx = i;
-                for (int j = i+1; j < n; j++)
-                    if (full.get(j).start < full.get(idx).start)
+                for (int j = i+1; j < full.size(); j++)
+                    if (full.get(j).getStart() < full.get(idx).getStart())
                         idx = j;
                 Event temp = full.get(idx);
                 full.set(idx, full.get(i));
-                full.set(i, full.get(temp));
+                full.set(i, temp);
             }
             for (int i = 0; i < full.size()-1; i++) {
                 double end = full.get(i).getEnd();
