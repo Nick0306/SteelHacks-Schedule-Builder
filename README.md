@@ -66,6 +66,9 @@ and update the related settings there.
 
 Part1: Compiling
 
+Using either Eclipse or  VSCode as long as the  user has access to all the files in the repository
+the user can run the Schdule Builder using the respective IDS auto-compile and run features.
+
 The user should be able to compile and run our program from the command line.
 In order to run the project, you will have to run this special command for each of the four .jar
 libraries that were implemented in our project. The command prompt follows this structure:
@@ -73,9 +76,12 @@ libraries that were implemented in our project. The command prompt follows this 
 javac -cp "/Path/to/project/SteelHacks/Reference Libraries/biweekly-0.6.6.jar:/Path/to/project/SteelHacks/Reference Libraries/jackson-core-2.12.1.jar://Path/to/project/SteelHacks/Reference Libraries/joda-time-2.10.13.jar:/Path/to/project/SteelHacks/Reference Libraries/vinnie-2.0.2.jar:" ScheduleBuilderGUI.java
 
 By Entering this command into the command line, the user will reference the libraries that are 
-required in order to take in the .ics files and integrate them into the Schedule Builder. Without 
-these files the program will still compile and run, however the user will not be able to import
-.ics from their online calendars into the program.
+required in order to compile the files with the imported libraries and integrate them into the
+Schedule Builder. Without these files the program will not compile and run. 
+
+Running the program through the command line however, does not allow the access to import
+their schedules as .ics files. The user will still be able to click the "Import" button, 
+but after copying a path into the field, no changes will be to the Schedule. 
 
 Part 2: Running
 
