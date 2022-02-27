@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ScheduleSizer {
     
     public int day; // value 0 - 6
@@ -5,8 +7,8 @@ public class ScheduleSizer {
     public int frameWidth;
     public int frameX;
     public int frameY;
-    public int widthOffset;
-    public int heightOffset;
+    public int widthOffset = 20;
+    public int heightOffset = 20;
     public double interval;
     public ArrayList<Schedule> schedules;
 
@@ -19,9 +21,6 @@ public class ScheduleSizer {
         this.schedules = schedules;
         interval = calcInterval();
     }
-
-    // testing constructor
-
 
     public int calcX (int currSchedule, int width) {
         int spaces = currSchedule * widthOffset;
@@ -49,6 +48,7 @@ public class ScheduleSizer {
     }
 
     public int calcHeight (double subInterval) {
+        System.out.println(interval + " interval");
         double pixels = (subInterval / interval) * frameHeight;
         return (int) pixels;
 
@@ -56,8 +56,8 @@ public class ScheduleSizer {
 
     private int calcInterval () {
         Day[] days = new Day[schedules.size()];
-        for (int i = 0; i < schedules.size(day); i++)
-            days[i] = schedules.get(i).getDay();
+        for (int i = 0; i < schedules.size(); i++)
+            days[i] = schedules.get(i).getDay(day);
         ArrayList<Event> full = new ArrayList<Event>();
         for (int i = 0; i < days.length; i++) {
             ArrayList<Event> events = days[i].getEvents();
@@ -78,6 +78,6 @@ public class ScheduleSizer {
             if (e.getEnd() > max) 
                 max = e.getEnd();
         }
-        return (int)(max - min + heightOffset * 2);
+        return (int)(max - min);
     }
 }
