@@ -16,8 +16,8 @@ public class ReadICalTest{
 
         DateTime now = DateTime.now();
         //readICal nCal = new readICal("ScheduleBuilder/src/Spring Term 2021-2022 (1).ics");
-        readICal nCal = new readICal("ScheduleBuilder/src/stevenrj2@gmail.com.ics");
-        readICal mCal = new readICal("ScheduleBuilder/src/srj42@pitt.edu.ics");
+        readICal nCal = new readICal("ScheduleBuilder/src/testICSFiles/stevenrj2@gmail.com.ics");
+        readICal mCal = new readICal("ScheduleBuilder/src/testICSFiles/srj42@pitt.edu.ics");
 
         nCal.setWeek(now);
         mCal.setWeek(now);
