@@ -57,10 +57,15 @@ public class readICal {
 
 
         for(VEvent event: this.ical.getEvents()) {
-            DateTime dtStart = new DateTime(event.getDateStart());
+            System.out.println(event.getSummary().getValue());
+            DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
+                System.out.println(event.getSummary().getValue());
+
             }
+        
+            //System.out.println((Date) event.getDateStart().getValue());
         }
 
         return newICal;
