@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.*;
@@ -52,8 +53,12 @@ public class readICal {
 
     public ICalendar daysInterested() {
         ICalendar newICal = new ICalendar();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+
+
         for(VEvent event: this.ical.getEvents()) {
-            if(!((ReadableInstant) event.getDateStart()).isBefore(this.weekStart) && !((ReadableInstant) event.getDateStart()).isAfter(this.weekEnd)) {
+            DateTime dtStart = new DateTime(event.getDateStart());
+            if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
             }
         }
@@ -62,7 +67,7 @@ public class readICal {
 
     }
 
-    public void setEventsToDays(ICalendar newICal) {
+    public Schedule setEventsToDays(ICalendar newICal) {
         Schedule schedule = new Schedule("Person 1");
         int count = 0;
         for(VEvent event : newICal.getEvents()) {
@@ -70,7 +75,8 @@ public class readICal {
             DateEnd eventEnd = event.getDateEnd();
 
             if(eventStart != null) {
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                
                 String start = df.format(eventStart);
                 String end = df.format(eventEnd);
                 System.out.println(start + "     " + end);
@@ -80,13 +86,34 @@ public class readICal {
                 double endMins = Integer.parseInt(end.substring(14,16));
                 double doubleStart = startHours + (startMins / 60);
                 double doubleEnd = endHours + (endMins / 60);
-
+                DateTime data = DateTime.parse(start);
+                int iDayNow = data.getDayOfWeek();
+                String dayString = "";
+                if(iDayNow == 1) {
+                    dayString = "Monday";
+                } else if (iDayNow == 2) {
+                    dayString = "Tuesday";
+                } else if (iDayNow == 3) {
+                    dayString = "Wednesday";
+                } else if (iDayNow == 4) {
+                    dayString = "Thursday";
+                } else if (iDayNow == 5) {
+                    dayString = "Friday";
+                } else if (iDayNow == 6) {
+                    dayString = "Saturday";
+                } else if (iDayNow == 7) {
+                    dayString = "Sunday";
+                }
+                
+                schedule.addEvent(dayString, event.getSummary().getValue(), doubleStart, doubleEnd, true);
                 
                 //DateTime dt = new DateTime(df);
                 //schedule.getDay(count).addEvent()
             }
             
         }
+
+        return schedule;
     }
 
     // public static void main(String[] args) throws FileNotFoundException, IOException {
