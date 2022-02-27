@@ -55,7 +55,6 @@ public class readICal {
         ICalendar newICal = new ICalendar();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
-
         for(VEvent event: this.ical.getEvents()) {
             System.out.println(event.getSummary().getValue());
             DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
