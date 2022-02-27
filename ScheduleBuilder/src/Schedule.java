@@ -4,7 +4,7 @@ public class Schedule {
     
     //Array of Days of the Week
     //Sunday is 0 and Saturday is 6
-    private static String[] week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    public static String[] week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private Day[] schedOfWeek = new Day[7];
     private int size = 0;
     private String title;

@@ -30,6 +30,9 @@ public class Person {
     }
     */
 
+    public Schedule[] getSchedule() {
+    	return this.schedules;
+    }
     public Schedule getSchedule (int i) {
         return schedules[i];
     }

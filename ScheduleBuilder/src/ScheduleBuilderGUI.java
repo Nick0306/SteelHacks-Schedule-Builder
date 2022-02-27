@@ -23,11 +23,13 @@ public class ScheduleBuilderGUI{
 	public JFrame frmWindow;
 	private JLabel lblTitle, lblCOLON, lblCOLON1;
 	private JTextField txtEventName, txtSHour, txtSMin, txtEHour, txtEMin;
-	private JButton btnAddUser, btnCompare, btnAddEvent, btnShowSchedule;
+	private JButton btnAddUser, btnCompare, btnAddEvent, btnShowSchedule, btnScheduleDisplayer;
 	private JComboBox cboUser, cboDays, cboWeek;
 	private JTextArea txtareaOutput;
 	private JScrollPane sp;
 	private JButton btnImportSchedule;
+	private JLabel lblSTime;
+	private JLabel lblETime;
 	
 	public ScheduleBuilderGUI(){
 		
@@ -323,6 +325,33 @@ public class ScheduleBuilderGUI{
 		});
 		
 		
+		btnScheduleDisplayer = new JButton("Schedule Displayer");
+		btnScheduleDisplayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int week = 0;
+				if(cboWeek.getSelectedItem().equals("Week One")) {
+					week = 0;
+				}else if(cboWeek.getSelectedItem().equals("Week Two")) {
+					week = 1;
+				}else if(cboWeek.getSelectedItem().equals("Week Three")) {
+					week = 2;
+				}else if(cboWeek.getSelectedItem().equals("Week Four")) {
+					week = 3;
+				}
+				
+				String day = (String) cboDays.getSelectedItem();
+				int dayNum = 0;
+				for(int i = 0; i < Schedule.week.length; i++) {
+					if(day.equals(Schedule.week[i])) {
+						dayNum = i;
+					}
+				}
+				
+				ScheduleDisplayerGUI displayer = new ScheduleDisplayerGUI(users, week, dayNum);
+			}
+		});
+		
+		
 		
 		//String name = JOptionPane.showInputDialog("Name of New User");
 		
@@ -333,6 +362,7 @@ public class ScheduleBuilderGUI{
 		btnCompare.setForeground(new Color(115,98,138));
 		btnAddEvent.setForeground(new Color(115,98,138));
 		
+		btnScheduleDisplayer.setBounds(165, 437, 153, 29);
 		btnImportSchedule.setBounds(301, 19, 171, 29);
 		btnShowSchedule.setBounds(359, 437, 117, 29);
 		btnAddUser.setBounds(6, 437, 117, 29);
@@ -340,6 +370,7 @@ public class ScheduleBuilderGUI{
 		btnAddEvent.setBounds(19, 190, 130, 33);
 		
 		
+		frmWindow.getContentPane().add(btnScheduleDisplayer);
 		frmWindow.getContentPane().add(btnImportSchedule);
 		frmWindow.getContentPane().add(lblTitle);
 		frmWindow.getContentPane().add(cboDays);
@@ -358,12 +389,30 @@ public class ScheduleBuilderGUI{
 		frmWindow.getContentPane().add(btnAddEvent);
 		frmWindow.getContentPane().add(btnShowSchedule);
 		
+		lblSTime = new JLabel("STARTING TIME");
+		lblSTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSTime.setForeground(new Color(49, 61, 90));
+		lblSTime.setFont(new Font("LEMON MILK", Font.BOLD | Font.ITALIC, 9));
+		lblSTime.setBounds(140, 126, 87, 33);
+		frmWindow.getContentPane().add(lblSTime);
+		
+		lblETime = new JLabel("ENDING TIME");
+		lblETime.setForeground(new Color(49, 61, 90));
+		lblETime.setFont(new Font("LEMON MILK", Font.BOLD | Font.ITALIC, 9));
+		lblETime.setBounds(144, 154, 87, 33);
+		frmWindow.getContentPane().add(lblETime);
+		
+		
+		
 		
 		
 		
 		
 		
 		frmWindow.setVisible(true);
+	}
+	public ArrayList<Person> getUsers(){
+		return users;
 	}
 	public static void main(String[] args) {
 		ScheduleBuilderGUI window = new ScheduleBuilderGUI();
