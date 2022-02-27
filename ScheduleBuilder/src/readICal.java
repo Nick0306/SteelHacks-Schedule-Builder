@@ -120,6 +120,14 @@ public class readICal {
         return schedule;
     }
 
+    public static Schedule importICS(String filePath) {
+        DateTime now = DateTime.now();
+        readICal cal = new readICal(filePath);
+        cal.setWeek(now);
+        Schedule P1 = cal.setEventsToDays(cal.daysInterested());
+        return P1;
+    }
+
     // public static void main(String[] args) throws FileNotFoundException, IOException {
 
     //     // parse the first iCalendar object from the data stream
