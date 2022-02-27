@@ -46,7 +46,9 @@ public class readICal {
     public void setWeek(DateTime now) {
         int iDayNow = now.getDayOfWeek();
         weekStart = now.minusDays((iDayNow - 1));
+        weekStart = weekStart.minusHours(weekStart.getHourOfDay() - 1);
         weekEnd = now.plusDays(7 - iDayNow);
+        weekEnd = weekEnd.plusHours(24 - weekEnd.getHourOfDay() - 1);
         //System.out.println(weekEnd);
         //System.out.println(weekStart);
     }
@@ -56,7 +58,7 @@ public class readICal {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         for(VEvent event: this.ical.getEvents()) {
-            System.out.println(event.getSummary().getValue());
+            //System.out.println(event.getSummary().getValue());
             DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
