@@ -18,6 +18,15 @@ public class ReadICalTest{
         nCal.setWeek(now);
         System.out.println(nCal.weekEnd);
         System.out.println(nCal.weekStart);
+        //System.out.println();
+        nCal.daysInterested();
+        // for(VEvent event : ical.getEvents()) {
+        //     System.out.println(event.getSummary().getValue());
+        // }
+        //Schedule P1 = nCal.setEventsToDays(nCal.daysInterested());
+        //P1.toString();
+        //P1.schedOfWeek[0]
 
+        
     }
 }
