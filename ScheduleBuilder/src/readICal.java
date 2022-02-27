@@ -55,7 +55,6 @@ public class readICal {
         ICalendar newICal = new ICalendar();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
-
         for(VEvent event: this.ical.getEvents()) {
             DateTime dtStart = new DateTime(event.getDateStart());
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
