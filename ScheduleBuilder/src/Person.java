@@ -36,7 +36,9 @@ public class Person {
     public Schedule getSchedule (int i) {
         return schedules[i];
     }
-    
+    public void setSchedule(Schedule schedule, int week) {
+    	schedules[week] = schedule;
+    }
     public String getName() {
     	return name;
     }

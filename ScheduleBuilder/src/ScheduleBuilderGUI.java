@@ -319,7 +319,31 @@ public class ScheduleBuilderGUI{
 		btnImportSchedule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String icsPath = JOptionPane.showInputDialog("Please provide the file path to your Calendar's ICS file.");
-				//Jeffs Implementation
+				
+				int week = 0;
+				if(cboWeek.getSelectedItem().equals("Week One")) {
+					week = 0;
+				}else if(cboWeek.getSelectedItem().equals("Week Two")) {
+					week = 1;
+				}else if(cboWeek.getSelectedItem().equals("Week Three")) {
+					week = 2;
+				}else if(cboWeek.getSelectedItem().equals("Week Four")) {
+					week = 3;
+				}
+				
+				String userName = (String) cboUser.getSelectedItem();
+				Person user = null;
+				
+				for(Person per : users) {
+					if(per.getName().equals(userName)) {
+						user = per;
+						break;
+					}
+				}
+				Schedule schedule = readICal.importICS(icsPath);
+				
+				user.setSchedule(schedule, week);
+				
 				return;
 			}
 		});
