@@ -62,7 +62,7 @@ public class readICal {
             DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
-                System.out.println(event.getSummary().getValue());
+                //System.out.println(event.getSummary().getValue());
 
             }
         
@@ -83,17 +83,15 @@ public class readICal {
             if(eventStart != null) {
                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
                 
-                String start = df.format(eventStart);
-                String end = df.format(eventEnd);
-                System.out.println(start + "     " + end);
-                int startHours = Integer.parseInt(start.substring(11,13));
-                double startMins = Integer.parseInt(start.substring(14,16));
-                int endHours = Integer.parseInt(end.substring(11,13));
-                double endMins = Integer.parseInt(end.substring(14,16));
-                double doubleStart = startHours + (startMins / 60);
-                double doubleEnd = endHours + (endMins / 60);
-                DateTime data = DateTime.parse(start);
-                int iDayNow = data.getDayOfWeek();
+                DateTime start = new DateTime((Date) event.getDateStart().getValue());
+                int startHours = start.getHourOfDay();
+                double startMins = start.getMinuteOfHour();
+                DateTime end = new DateTime((Date) event.getDateEnd().getValue());
+                int endHours = end.getHourOfDay();
+                double endMins = end.getMinuteOfHour();
+                double doubleStart = startHours + (startMins / 60.0);
+                double doubleEnd = endHours + (endMins / 60.0);
+                int iDayNow = start.getDayOfWeek();
                 String dayString = "";
                 if(iDayNow == 1) {
                     dayString = "Monday";
