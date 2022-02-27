@@ -129,12 +129,12 @@ public class Schedule {
                     times[pos+1] = e.getEnd();
                     pos+=2;
                 }
-                free.getDay(i).addEvent("", 8, times[0], true);
+                free.getDay(i).addEvent("", start, times[0], true);
                 for (int j = 1; j < times.length-1; j+=2) {
                     if (times[j] != times[j+1])
                         free.getDay(i).addEvent("", times[j], times[j+1], true);
                 }
-                free.getDay(i).addEvent("", times[times.length-1], 24, true);
+                free.getDay(i).addEvent("", times[times.length-1], end, true);
             }
         }
 
