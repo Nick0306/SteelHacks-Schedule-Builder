@@ -114,7 +114,7 @@ public class Schedule {
                 overlayed.getDay(k).setEvents(full); 
             }
         }
-        double start = 8;
+        double start = 0;
         double end = 24;
         Schedule free = new Schedule("Free times");
         //System.out.println(overlayed.toString());
