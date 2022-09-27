@@ -7,15 +7,19 @@ import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.joda.time.*;
 import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 
 import biweekly.*;
 import biweekly.component.VEvent;
 import biweekly.property.DateEnd;
 import biweekly.property.DateStart;
 import biweekly.util.Period;
+import biweekly.util.Recurrence;
+import biweekly.util.com.google.ical.compat.javautil.DateIterator;
 
 public class readICal {
     DateTime now = DateTime.now();
@@ -34,6 +38,7 @@ public class readICal {
 
     public readICal(String[] fileNames) {
         try {
+            //reads all calendars and stores in list
             List<ICalendar> icals = Biweekly.parse(new FileReader(fileNames[0])).all();
             for(int i = 1; i < fileNames.length; i++) {
                  icals.add(Biweekly.parse(new FileReader(fileNames[i])).first());
@@ -49,8 +54,8 @@ public class readICal {
         weekStart = weekStart.minusHours(weekStart.getHourOfDay() - 1);
         weekEnd = now.plusDays(7 - iDayNow);
         weekEnd = weekEnd.plusHours(24 - weekEnd.getHourOfDay() - 1);
-        //System.out.println(weekEnd);
-        //System.out.println(weekStart);
+        System.out.println(weekEnd);
+        System.out.println(weekStart);
     }
 
     public ICalendar daysInterested() {
@@ -59,11 +64,40 @@ public class readICal {
 
         for(VEvent event: this.ical.getEvents()) {
             //System.out.println(event.getSummary().getValue());
+            
             DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
+            //this gets rid of all events before, need to take into account recurring events
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
                 //System.out.println(event.getSummary().getValue());
-
+            } else {
+                //recurring events have recurrenceRule
+                if(event.getRecurrenceRule() != null) {
+                    //Get an iterator that iterates through list of dates
+                    DateIterator iterator = event.getRecurrenceRule().getDateIterator(event.getDateStart().getValue(), TimeZone.getDefault());
+                    //skip to date concerned with
+                    iterator.advanceTo(this.weekStart.toDate());
+                    //iterator isn't empty
+                    while(iterator.hasNext()) {
+                        //get date
+                        org.joda.time.LocalDate d = new LocalDate(iterator.next());
+                        System.out.println(d);
+                        //stop loop if iterating date is out of week interested in
+                        if(d.toDate().compareTo(weekEnd.toDate()) > 0) {
+                            break;
+                        }
+                        //makes a deep copy of event
+                        VEvent recurEvent = new VEvent(event.copy());
+                        recurEvent.setDateStart(d.toDate());
+                        //have to set make a variable and set it or else will give ambiguity error
+                        Recurrence x = null;
+                        recurEvent.setRecurrenceRule(x);
+                        recurEvent.setDateEnd(d.toDate());
+                        newICal.addEvent(recurEvent);
+                    }
+                     
+                }
+                
             }
         
             //System.out.println((Date) event.getDateStart().getValue());
@@ -77,6 +111,7 @@ public class readICal {
         Schedule schedule = new Schedule("Person 1");
         int count = 0;
         for(VEvent event : newICal.getEvents()) {
+            System.out.println(event.getUid());
             DateStart eventStart = event.getDateStart();
             DateEnd eventEnd = event.getDateEnd();
 
