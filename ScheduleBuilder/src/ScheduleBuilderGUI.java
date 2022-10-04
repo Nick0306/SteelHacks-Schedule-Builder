@@ -340,7 +340,7 @@ public class ScheduleBuilderGUI{
 						break;
 					}
 				}
-				Schedule schedule = readICal.importICS(icsPath);
+				Schedule schedule = readICal.importICS(icsPath, week);
 				
 				user.setSchedule(schedule, week);
 				
