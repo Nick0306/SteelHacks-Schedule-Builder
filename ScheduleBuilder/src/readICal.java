@@ -17,6 +17,8 @@ import biweekly.*;
 import biweekly.component.VEvent;
 import biweekly.property.DateEnd;
 import biweekly.property.DateStart;
+import biweekly.util.Duration;
+import biweekly.util.ICalDate;
 import biweekly.util.Period;
 import biweekly.util.Recurrence;
 import biweekly.util.com.google.ical.compat.javautil.DateIterator;
@@ -66,12 +68,18 @@ public class readICal {
             //System.out.println(event.getSummary().getValue());
             
             DateTime dtStart = new DateTime((Date) event.getDateStart().getValue());
+            DateTime dtEnd = new DateTime((Date) event.getDateEnd().getValue());
+
+            Duration dur = Duration.builder().hours(dtEnd.getHourOfDay() - dtStart.getHourOfDay()).minutes(dtEnd.getMinuteOfHour() - dtStart.getMinuteOfHour()).build();
+
+
             //this gets rid of all events before, need to take into account recurring events
             if(!dtStart.isBefore(this.weekStart) && !dtStart.isAfter(this.weekEnd)) {
                 newICal.addEvent(event);
                 //System.out.println(event.getSummary().getValue());
             } else {
                 //recurring events have recurrenceRule
+                //TODO: Set event time, currently initalizes to 0:00
                 if(event.getRecurrenceRule() != null) {
                     //Get an iterator that iterates through list of dates
                     DateIterator iterator = event.getRecurrenceRule().getDateIterator(event.getDateStart().getValue(), TimeZone.getDefault());
@@ -80,19 +88,26 @@ public class readICal {
                     //iterator isn't empty
                     while(iterator.hasNext()) {
                         //get date
-                        org.joda.time.LocalDate d = new LocalDate(iterator.next());
-                        System.out.println(d);
+                        Date startDate = iterator.next();
+                        //append time to Date
+                        startDate.setHours(event.getDateStart().getValue().getHours());
+                        startDate.setMinutes(event.getDateStart().getValue().getMinutes());
+            
                         //stop loop if iterating date is out of week interested in
-                        if(d.toDate().compareTo(weekEnd.toDate()) > 0) {
+                        if(startDate.compareTo(weekEnd.toDate()) > 0) {
                             break;
                         }
+                        
+                        Date endDate = dur.add(startDate);
                         //makes a deep copy of event
                         VEvent recurEvent = new VEvent(event.copy());
-                        recurEvent.setDateStart(d.toDate());
+                        //System.out.println("Should have date and time: " + startDate);
+                        //System.out.println("What time is End Date: " + dtEnd);
+                        recurEvent.setDateStart(startDate);
+                        recurEvent.setDateEnd(endDate);
                         //have to set make a variable and set it or else will give ambiguity error
                         Recurrence x = null;
                         recurEvent.setRecurrenceRule(x);
-                        recurEvent.setDateEnd(d.toDate());
                         newICal.addEvent(recurEvent);
                     }
                      
@@ -111,7 +126,7 @@ public class readICal {
         Schedule schedule = new Schedule("Person 1");
         int count = 0;
         for(VEvent event : newICal.getEvents()) {
-            System.out.println(event.getUid());
+            //System.out.println(event.getUid());
             DateStart eventStart = event.getDateStart();
             DateEnd eventEnd = event.getDateEnd();
 
@@ -155,8 +170,9 @@ public class readICal {
         return schedule;
     }
 
-    public static Schedule importICS(String filePath) {
-        DateTime now = DateTime.now();
+    public static Schedule importICS(String filePath, int week) {
+        DateTime now = DateTime.now(); 
+        now = now.plusDays(week * 7); //offset to which week of schedule
         readICal cal = new readICal(filePath);
         cal.setWeek(now);
         Schedule P1 = cal.setEventsToDays(cal.daysInterested());
